@@ -1,7 +1,7 @@
 {
   "name": "My Updates",
   "short_name": "Updates",
-  "start_url": "/pwa-sample-site",
+  "start_url": "https://yes-devil.github.io/pwa-sample-site/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#265cfc",
