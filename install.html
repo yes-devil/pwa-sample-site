@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="manifest" href="manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>install page</title>
+</head>
+
+<body>
+    <h1>this is install page "/install"</h1>
+    <a href="/">home</a>
+    <a href="/about.html">about</a>
+    <a href="/install.html">install</a>
+    <a href="/update.html">updates get here</a>
+
+    <button id="installBtn">install now</button>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("sw.js");
+        }
+        
+        let deferredPrompt;
+
+        const installBtn = document.getElementById("installBtn");
+
+        installBtn.style.display = "none";
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+
+            e.preventDefault();
+
+            deferredPrompt = e;
+
+            installBtn.style.display = "block";
+
+        });
+
+        installBtn.addEventListener("click", async () => {
+
+            if (!deferredPrompt) {
+
+                alert("Use Chrome menu → Add to Home Screen");
+
+                return;
+
+            }
+
+            deferredPrompt.prompt();
+
+            const choice = await deferredPrompt.userChoice;
+
+            console.log(choice.outcome);
+
+            deferredPrompt = null;
+
+            installBtn.style.display = "none";
+
+        });
+    </script>
+</body>
+
+</html>
